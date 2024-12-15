@@ -8,7 +8,7 @@ load_dotenv()
 
 config=os.getenv('FLASK_ENV') or 'development'
 
-app = create_app(config)
+app = create_app()
 
 @app.route("/api/users", methods=["GET"])
 def users():

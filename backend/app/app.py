@@ -1,28 +1,30 @@
 from flask import Flask
-from app.config.config import get_config_by_name
+from flask_migrate import Migrate
+from app.config.config import Config
 from app.initialize_functions import initialize_route, initialize_db, initialize_swagger
+from app.db.db import db
+from app.db.models import User
+import logging
+from dotenv import load_dotenv
 
-def create_app(config=None) -> Flask:
-    """
-    Create a Flask application.
+try:
+    load_dotenv()
+except Exception as e:
+    print(f"Nie udało się załadować pliku .env: {e}")
 
-    Args:
-        config: The configuration object to use.
-
-    Returns:
-        A Flask application instance.
-    """
+def create_app() -> Flask:
     app = Flask(__name__)
-    if config:
-        app.config.from_object(get_config_by_name(config))
+    app.config.from_object(Config)
 
     # Initialize extensions
     initialize_db(app)
+    migrate = Migrate(app, db)
 
-    # Register blueprints
     initialize_route(app)
 
-    # Initialize Swagger
     initialize_swagger(app)
+
+    if not app.debug:
+        logging.basicConfig(level=logging.INFO)
 
     return app
