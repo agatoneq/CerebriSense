@@ -17,7 +17,7 @@ function App() {
         <Link to="/about-study">O Badaniu</Link>
         <Link to="/about-app">O Aplikacji</Link>
         {!isLoggedIn && <Link to="/login">Zaloguj się</Link>}
-        {isLoggedIn && <Link to="/doctor-panel">DoctorPanel</Link>}
+        {isLoggedIn && <Link to="/doctor-panel">Panel Lekarza</Link>}
       </div>
       <div className="content">
         <Routes>

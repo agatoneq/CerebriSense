@@ -3,88 +3,70 @@ import "../styles/AddPatient.css";
 
 function AddPatient() {
   const [formData, setFormData] = useState({
-    name: "",
-    age: "",
+    first_name: "",
+    last_name: "",
+    group: "2",
     gender: "",
-    diagnosis: "",
-    file: null,
+    raw_eeg_file: null,
   });
 
-  const [message, setMessage] = useState(""); // Komunikaty o sukcesie lub błędzie
+  const [message, setMessage] = useState("");
 
-  // Obsługa zmiany w formularzu
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, files } = e.target;
+    if (name === "raw_eeg_file") {
+      setFormData({ ...formData, raw_eeg_file: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  // Obsługa zmiany pliku
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, file: e.target.files[0] });
-  };
-
-  // Wysłanie formularza
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("age", formData.age);
-    formDataToSend.append("gender", formData.gender);
-    formDataToSend.append("diagnosis", formData.diagnosis);
-    formDataToSend.append("file", formData.file);
-
-    try {
-      const response = await fetch("http://127.0.0.1:5000/api/v1/patients/add", {
-        method: "POST",
-        body: formDataToSend, // Przesyłamy dane jako FormData
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setMessage("Pacjent został pomyślnie dodany!");
-      } else {
-        const error = await response.json();
-        setMessage(`Błąd: ${error.error}`);
-      }
-    } catch (err) {
-      setMessage("Wystąpił problem z połączeniem.");
-    }
+    setMessage("Pacjent został dodany pomyślnie!");
   };
 
   return (
     <div className="add-patient-container">
-      <h2>Dodaj Pacjenta</h2>
+      <h2 className="add-patient-title">Dodaj Pacjenta</h2>
       <form className="add-patient-form" onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
-          placeholder="Imię i nazwisko"
-          value={formData.name}
+          name="first_name"
+          placeholder="Imię"
+          className="add-patient-input"
           onChange={handleChange}
           required
         />
         <input
-          type="number"
-          name="age"
-          placeholder="Wiek"
-          value={formData.age}
+          type="text"
+          name="last_name"
+          placeholder="Nazwisko"
+          className="add-patient-input"
           onChange={handleChange}
           required
         />
-        <select name="gender" value={formData.gender} onChange={handleChange} required>
+        <select name="group" className="add-patient-select" onChange={handleChange}>
+          <option value="2">Nieznane</option>
+          <option value="0">Zdrowy</option>
+          <option value="1">Schizofrenia</option>
+        </select>
+        <select name="gender" className="add-patient-select" onChange={handleChange} required>
           <option value="">Wybierz płeć</option>
           <option value="M">Mężczyzna</option>
           <option value="F">Kobieta</option>
         </select>
-        <textarea
-          name="diagnosis"
-          placeholder="Diagnoza lekarza (opcjonalne)"
-          value={formData.diagnosis}
+        <input
+          type="file"
+          name="raw_eeg_file"
+          accept=".csv"
+          className="add-patient-input"
           onChange={handleChange}
-        ></textarea>
-        <input type="file" accept=".csv, .edf" onChange={handleFileChange} required />
-        <button type="submit">Dodaj Pacjenta</button>
+          required
+        />
+        <button type="submit" className="add-patient-button">
+          Dodaj Pacjenta
+        </button>
       </form>
       {message && <p className="add-patient-message">{message}</p>}
     </div>

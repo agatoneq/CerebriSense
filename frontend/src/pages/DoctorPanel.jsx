@@ -10,7 +10,7 @@ function DoctorPanel() {
         <Link to="/add-patient" className="doctor-panel-link">
           Dodaj Pacjenta
         </Link>
-        <Link to="/patients" className="panel-link">
+        <Link to="/patients" className="doctor-panel-link">
           Baza Pacjentów
         </Link>
       </div>

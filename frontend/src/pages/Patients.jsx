@@ -1,76 +1,61 @@
-import React, { useState, useEffect } from "react";
-import "../styles/Patients.css";
+import React, { useEffect, useState } from "react";
+import "../styles/AddPatient.css";
 
 function Patients() {
   const [patients, setPatients] = useState([]);
-  const [selectedPatient, setSelectedPatient] = useState(null);
-  const [error, setError] = useState("");
-
 
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/v1/patients");
-        if (response.ok) {
-          const data = await response.json();
-          setPatients(data);
-        } else {
-          setError("Nie udało się pobrać listy pacjentów.");
-        }
+        const response = await fetch(
+          "http://127.0.0.1:5000/api/v1/patients/",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        const data = await response.json();
+        setPatients(data);
       } catch (err) {
-        setError("Wystąpił problem z połączeniem.");
+        console.error("Błąd pobierania pacjentów:", err);
       }
     };
 
     fetchPatients();
   }, []);
 
-  const handleViewDetails = (patient) => {
-    setSelectedPatient(patient);
-  };
-
   return (
-    <div className="patients-container">
+    <div>
       <h2>Lista Pacjentów</h2>
-
-      {error && <p className="error">{error}</p>}
-
-      <div className="patients-list">
-        {patients.map((patient) => (
-          <div key={patient.id} className="patient-card">
-            <p>
-              <strong>{patient.name}</strong>
-            </p>
-            <p>Wiek: {patient.age}</p>
-            <p>Płeć: {patient.gender}</p>
-            <button onClick={() => handleViewDetails(patient)}>
-              Szczegóły
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {selectedPatient && (
-        <div className="patient-details">
-          <h3>Szczegóły pacjenta</h3>
-          <p>
-            <strong>Imię i nazwisko:</strong> {selectedPatient.name}
-          </p>
-          <p>
-            <strong>Wiek:</strong> {selectedPatient.age}
-          </p>
-          <p>
-            <strong>Płeć:</strong> {selectedPatient.gender}
-          </p>
-          <p>
-            <strong>Diagnoza:</strong>{" "}
-            {selectedPatient.diagnosis || "Brak diagnozy"}
-          </p>
-          <p>
-            <strong>Plik EEG:</strong> {selectedPatient.eeg_file}
-          </p>
-        </div>
-      )}
+      <table>
+        <thead>
+          <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Grupa</th>
+            <th>Płeć</th>
+            <th>Plik EEG</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patients.map((patient) => (
+            <tr key={patient.id}>
+              <td>{patient.first_name}</td>
+              <td>{patient.last_name}</td>
+              <td>
+                {patient.group === 0
+                  ? "Zdrowy"
+                  : patient.group === 1
+                  ? "Schizofrenia"
+                  : "Nieznane"}
+              </td>
+              <td>{patient.gender === "M" ? "Mężczyzna" : "Kobieta"}</td>
+              <td>{patient.raw_eeg_file}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

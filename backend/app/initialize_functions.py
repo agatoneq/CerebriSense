@@ -13,8 +13,8 @@ def initialize_route(app: Flask):
     try:
         with app.app_context():
             app.register_blueprint(main_bp, url_prefix='/api/v1/main')
-            app.register_blueprint(auth_bp)
-            app.register_blueprint(patients_bp)
+            app.register_blueprint(auth_bp, url_prefix='/api/v1/auth')
+            app.register_blueprint(patients_bp, url_prefix='/api/v1/patients')
     except Exception as e:
         print(f"Błąd rejestracji tras: {e}")
 
