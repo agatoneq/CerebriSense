@@ -4,6 +4,7 @@ from app.config.config import Config
 from app.initialize_functions import initialize_route, initialize_db, initialize_swagger
 from app.db.db import db
 from app.db.models import User
+from flask_cors import CORS
 import logging
 from dotenv import load_dotenv
 
@@ -17,6 +18,8 @@ def create_app() -> Flask:
     app.config.from_object(Config)
 
     # Initialize extensions
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+    
     initialize_db(app)
     migrate = Migrate(app, db)
 
