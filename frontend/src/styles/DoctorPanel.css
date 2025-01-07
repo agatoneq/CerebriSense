@@ -9,11 +9,6 @@
   color: white;
 }
 
-.doctor-panel-container h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
 .doctor-panel-menu {
   display: flex;
   flex-direction: column;

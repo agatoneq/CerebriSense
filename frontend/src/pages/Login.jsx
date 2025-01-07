@@ -66,6 +66,9 @@ function Login({ setIsLoggedIn }) {
           </button>
         </form>
         {message && <p className="login-message">{message}</p>}
+        <div className="login-footer">
+          Nie masz konta? <a href="/register" className="register-link">Zarejestruj się</a>
+        </div>
       </div>
     </div>
   );

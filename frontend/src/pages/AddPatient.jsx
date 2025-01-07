@@ -23,8 +23,32 @@ function AddPatient() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("Pacjent został dodany pomyślnie!");
+  
+    const formDataToSend = new FormData();
+    formDataToSend.append("first_name", formData.first_name);
+    formDataToSend.append("last_name", formData.last_name);
+    formDataToSend.append("group", formData.group);
+    formDataToSend.append("gender", formData.gender);
+    formDataToSend.append("raw_eeg_file", formData.raw_eeg_file);
+  
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/v1/patients/add", {
+        method: "POST",
+        body: formDataToSend,
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setMessage(data.message);
+      } else {
+        const error = await response.json();
+        setMessage(error.error);
+      }
+    } catch (err) {
+      setMessage("Wystąpił problem z połączeniem.");
+    }
   };
+  
 
   return (
     <div className="add-patient-container">

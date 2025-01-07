@@ -31,3 +31,22 @@
 .navbar a:hover {
   color: #ff8800;
 }
+
+.navbar-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 0 1.5rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar-link:last-child {
+  border-right: none;
+}
+
+.navbar-link:hover {
+  color: #ff8800;
+}

@@ -9,9 +9,8 @@ function Register() {
     confirmPassword: "",
   });
 
-  const [message, setMessage] = useState(""); // Do wyświetlania komunikatów (sukces/błąd)
+  const [message, setMessage] = useState("");
 
-  // Funkcja obsługująca zmiany w polach formularza
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -19,7 +18,6 @@ function Register() {
     });
   };
 
-  // Funkcja obsługująca wysyłanie formularza
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -51,10 +49,10 @@ function Register() {
 
       if (response.ok) {
         const data = await response.json();
-        setMessage(data.message); // Wyświetlanie wiadomości z backendu
+        setMessage(data.message);
       } else {
         const error = await response.json();
-        setMessage(error.error); // Wyświetlanie błędu z backendu
+        setMessage(error.error);
       }
     } catch (err) {
       setMessage("Wystąpił problem z połączeniem.");

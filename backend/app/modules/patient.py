@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.db.db import db
 from app.db.models import Patient
 
@@ -6,18 +7,19 @@ patients_bp = Blueprint("patients", __name__, url_prefix="/api/v1/patients")
 
 @patients_bp.route("/add", methods=["POST"])
 def add_patient():
-    data = request.get_json()
-
     try:
-        first_name = data.get("first_name")
-        last_name = data.get("last_name")
-        group = data.get("group", 2)
-        gender = data.get("gender")
-        note = data.get("note", "")
-        raw_eeg_file = data.get("raw_eeg_file")
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        group = request.form.get("group", 2)
+        gender = request.form.get("gender")
+        note = request.form.get("note", "")
+        raw_eeg_file = request.files.get("raw_eeg_file")
 
-        if not first_name or not last_name or not gender:
+        if not first_name or not last_name or not gender or not raw_eeg_file:
             return jsonify({"error": "Wszystkie wymagane pola muszą być uzupełnione"}), 400
+
+        file_path = f"uploads/{raw_eeg_file.filename}"
+        raw_eeg_file.save(file_path)
 
         new_patient = Patient(
             first_name=first_name,
@@ -25,7 +27,7 @@ def add_patient():
             group=group,
             gender=gender,
             notes=[note] if note else [],
-            raw_eeg_file=raw_eeg_file,
+            raw_eeg_file=file_path,
         )
 
         db.session.add(new_patient)
