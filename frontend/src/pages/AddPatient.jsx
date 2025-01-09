@@ -8,6 +8,7 @@ function AddPatient() {
     group: "2",
     gender: "",
     raw_eeg_file: null,
+    doctor_id: "",
   });
 
   const [message, setMessage] = useState("");
@@ -30,6 +31,8 @@ function AddPatient() {
     formDataToSend.append("group", formData.group);
     formDataToSend.append("gender", formData.gender);
     formDataToSend.append("raw_eeg_file", formData.raw_eeg_file);
+    formDataToSend.append("doctor_id", parseInt(localStorage.getItem("id")));
+    
   
     try {
       const response = await fetch("http://127.0.0.1:5000/api/v1/patients/add", {

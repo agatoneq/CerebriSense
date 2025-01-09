@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/DoctorPanel.css";
+import "../styles/DiagnosisPanel.css";
 
-function DoctorPanel() {
+function DiagnosisPanel() {
   return (
     <div className="doctor-panel-container">
-      <h1 className="doctor-panel-title">Panel Zarządzania Pacjentami</h1>
       <div className="doctor-panel-menu">
         <Link to="/add-patient" className="doctor-panel-link">
           Dodaj Pacjenta
@@ -18,4 +17,4 @@ function DoctorPanel() {
   );
 }
 
-export default DoctorPanel;
+export default DiagnosisPanel;

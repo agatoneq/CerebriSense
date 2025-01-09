@@ -1,41 +1,38 @@
-.patients-container {
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #153758, #6a7b8c);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    max-width: 800px;
-    color: white;
-    text-align: center;
-  }
-  
-  .patients-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .patient-item {
-    background-color: #242424;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .patient-item p {
-    margin: 0.5rem 0;
-    font-size: 1rem;
-  }
-  
-  .patients-link {
-    display: inline-block;
-    margin-top: 1rem;
-    text-decoration: none;
-    color: #ff8800;
-    font-weight: bold;
-  }
-  
-  .patients-link:hover {
-    text-decoration: underline;
-  }
-  
+.patients-panel-container {
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #153758, #6a7b8c);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+  color: white;
+  text-align: center;
+}
+
+.patients-panel-container h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.patients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.patient-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #242424;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+.patient-card p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.patient-card strong {
+  color: #ff8800;
+}

@@ -1,5 +1,14 @@
+.doctor-panel-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem; /* Zmniejszono dolny margines */
+  margin-top: 0; /* Wyzerowano górny margines */
+  text-align: center;
+  color: white;
+}
+
 .doctor-panel-container {
-  margin: 2rem auto;
+  margin: 1rem auto; /* Zmniejszono marginesy wokół kontenera */
   padding: 2rem;
   border-radius: 12px;
   background: linear-gradient(90deg, #153758, #6a7b8c);
@@ -13,7 +22,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 2rem;
+  margin-top: 1rem; /* Zmniejszono odstęp między tytułem a menu */
 }
 
 .doctor-panel-link {

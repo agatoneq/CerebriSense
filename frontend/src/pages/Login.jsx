@@ -29,6 +29,10 @@ function Login({ setIsLoggedIn }) {
       if (response.ok) {
         const data = await response.json();
         setIsLoggedIn(true);
+        localStorage.setItem("id", data.id);
+
+        console.log(data)
+
         setMessage("Logowanie zakończone sukcesem!");
         navigate("/doctor-panel");
       } else {

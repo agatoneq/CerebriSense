@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "../styles/Patients.css";
 
-function Patients() {
+function PatientsPanel() {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
     async function fetchPatients() {
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/v1/patients/");
+        const response = await fetch("http://127.0.0.1:5000/api/v1/patients");
         if (response.ok) {
           const data = await response.json();
-          setPatients(data.patients);
+          setPatients(data);
         } else {
           console.error("Błąd podczas pobierania listy pacjentów.");
         }
@@ -24,23 +23,30 @@ function Patients() {
   }, []);
 
   return (
-    <div className="patients-container">
+    <div className="patients-panel-container">
+      <h1>Lista Pacjentów</h1>
       {patients.length > 0 ? (
-        <div className="patients-menu">
-          {patients.map((patient) => (
-            <div key={patient.id} className="patient-item">
+        <div className="patients-list">
+          {patients.map((patient, index) => (
+            <div key={index} className="patient-card">
+              <p><strong>Imię i Nazwisko:</strong> {patient.name}</p>
+              <p><strong>Płeć:</strong> {patient.gender === "F" ? "Kobieta" : "Mężczyzna"}</p>
               <p>
-                <strong>Imię i nazwisko:</strong> {patient.first_name} {patient.last_name}
+                <strong>Diagnoza:</strong>{" "}
+                {patient.diagnosis === 0
+                  ? "Zdrowy"
+                  : patient.diagnosis === 1
+                  ? "Chory (schizofrenia)"
+                  : "Brak diagnozy"}
               </p>
               <p>
-                <strong>Płeć:</strong> {patient.gender}
+                <strong>Model:</strong>{" "}
+                {patient.model_prediction === 0
+                  ? "Model sklasyfikował pacjenta jako zdrowego."
+                  : patient.model_prediction === 1
+                  ? "Model sklasyfikował pacjenta jako chorego."
+                  : "Nie przeprowadzano analizy danych."}
               </p>
-              <p>
-                <strong>Grupa:</strong> {patient.group}
-              </p>
-              <Link to={`/patient-details/${patient.id}`} className="patients-link">
-                Zobacz szczegóły
-              </Link>
             </div>
           ))}
         </div>
@@ -51,4 +57,4 @@ function Patients() {
   );
 }
 
-export default Patients;
+export default PatientsPanel;

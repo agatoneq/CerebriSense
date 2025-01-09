@@ -14,6 +14,7 @@ def add_patient():
         gender = request.form.get("gender")
         note = request.form.get("note", "")
         raw_eeg_file = request.files.get("raw_eeg_file")
+        doctor_id = request.form.get("doctor_id")
 
         if not first_name or not last_name or not gender or not raw_eeg_file:
             return jsonify({"error": "Wszystkie wymagane pola muszą być uzupełnione"}), 400
@@ -28,6 +29,7 @@ def add_patient():
             gender=gender,
             notes=[note] if note else [],
             raw_eeg_file=file_path,
+            doctor_id=doctor_id,
         )
 
         db.session.add(new_patient)

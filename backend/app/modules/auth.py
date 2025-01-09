@@ -40,4 +40,4 @@ def login():
         return jsonify({"error": "Nieprawidłowy e-mail lub hasło!"}), 401
 
     # Jeśli logowanie zakończy się sukcesem
-    return jsonify({"message": "Zalogowano pomyślnie!"}), 200
+    return jsonify({"message": "Zalogowano pomyślnie!", "id": user.id}), 200
