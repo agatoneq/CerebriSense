@@ -1,60 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Patients.css";
 
-function PatientsPanel() {
+function Patients() {
   const [patients, setPatients] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchPatients() {
+    const fetchPatients = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/v1/patients");
+        const response = await fetch("http://127.0.0.1:5000/api/v1/patients/");
         if (response.ok) {
           const data = await response.json();
-          setPatients(data);
+          setPatients(data.patients);
         } else {
-          console.error("Błąd podczas pobierania listy pacjentów.");
+          console.error("Błąd podczas pobierania pacjentów.");
         }
-      } catch (error) {
-        console.error("Problem z połączeniem:", error);
+      } catch (err) {
+        console.error("Wystąpił problem z połączeniem:", err);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
     fetchPatients();
   }, []);
 
+  if (loading) {
+    return <div className="loading">Ładowanie danych pacjentów...</div>;
+  }
+
   return (
-    <div className="patients-panel-container">
-      <h1>Lista Pacjentów</h1>
-      {patients.length > 0 ? (
-        <div className="patients-list">
-          {patients.map((patient, index) => (
-            <div key={index} className="patient-card">
-              <p><strong>Imię i Nazwisko:</strong> {patient.name}</p>
-              <p><strong>Płeć:</strong> {patient.gender === "F" ? "Kobieta" : "Mężczyzna"}</p>
+    <div className="patients-container">
+      <h2 className="patients-title">Twoi Pacjenci</h2>
+      {patients.length === 0 ? (
+        <p className="no-patients">Nie znaleziono pacjentów.</p>
+      ) : (
+        <div className="patients-grid">
+          {patients.map((patient) => (
+            <div key={patient.id} className="patient-card">
               <p>
-                <strong>Diagnoza:</strong>{" "}
-                {patient.diagnosis === 0
-                  ? "Zdrowy"
-                  : patient.diagnosis === 1
-                  ? "Chory (schizofrenia)"
-                  : "Brak diagnozy"}
+                <strong>Imię i Nazwisko:</strong>{" "}
+                <span className="highlighted-name">{patient.first_name} {patient.last_name}</span>
               </p>
               <p>
-                <strong>Model:</strong>{" "}
-                {patient.model_prediction === 0
-                  ? "Model sklasyfikował pacjenta jako zdrowego."
-                  : patient.model_prediction === 1
-                  ? "Model sklasyfikował pacjenta jako chorego."
-                  : "Nie przeprowadzano analizy danych."}
+                <strong>Twoja diagnoza:</strong>{" "}
+                {patient.group === 2 ? "-" : patient.group === 0 ? "Zdrowy" : "Schizofrenia"}
               </p>
+              <p>
+                <strong>Liczba wgranych plików EEG:</strong>{" "}
+                {patient.processed_files.length}
+              </p>
+              <button
+                className="details-button"
+                onClick={() =>
+                  (window.location.href = `/patient-details/${patient.id}`)
+                }
+              >
+                Wyświetl Szczegóły
+              </button>
             </div>
           ))}
         </div>
-      ) : (
-        <p>Brak pacjentów w bazie danych.</p>
       )}
     </div>
   );
 }
 
-export default PatientsPanel;
+export default Patients;

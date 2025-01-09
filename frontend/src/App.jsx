@@ -38,7 +38,7 @@ function App() {
         {!isLoggedIn && <Link to="/login">Zaloguj się</Link>}
         {isLoggedIn && (
           <>
-            <Link to="/doctor-panel">Panel Lekarza</Link>
+            <Link to="/doctor-panel">Panel Zarządzania Pacjentami</Link>
             <Link to="/diagnosis-panel">Panel Diagnozy</Link>
             <Link to="/" onClick={handleLogout}>
               Wyloguj się

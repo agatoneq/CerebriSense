@@ -1,25 +1,66 @@
 .patient-profile-container {
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #153758, #6a7b8c);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    max-width: 600px;
-    color: white;
-    text-align: center;
-  }
-  
-  .patient-details {
-    margin-top: 1.5rem;
-    text-align: left;
-  }
-  
-  .patient-details p {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-  }
-  
-  .patient-details strong {
-    color: #ff8800;
-  }
-  
+  margin: 6rem auto 1.8rem auto;
+  padding: 2rem;
+  max-width: 800px;
+  background: linear-gradient(90deg, #1b3650, #7e9cba);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: left;
+}
+
+.patient-profile-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.patient-details p {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.highlighted-name {
+  color: #d7b9ac;
+  font-weight: bold;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+li a {
+  color: #d7b9ac;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+li a:hover {
+  color: #8f7d75;
+}
+
+.back-button {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #656565;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #8f7d75;
+  transform: translateY(-3px);
+}

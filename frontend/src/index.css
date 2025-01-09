@@ -22,31 +22,17 @@
   justify-content: center;
   align-items: center;
   padding: 1rem 2rem;
-  background: linear-gradient(90deg, #153758, #6a7b8c);
+  background: linear-gradient(90deg, #1b3650, #7e9cba);
   color: white;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: linear-gradient(90deg, #153758, #6a7b8c);
-  color: white;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .navbar a {
   text-decoration: none;
   color: white;
   font-size: 1.1rem;
+  font-weight: bold;
   margin: 0;
   padding: 0 1.5rem;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
@@ -57,9 +43,8 @@
   border-right: none;
 }
 
-
 .navbar a:hover {
-  color: #ffa500;
+  color: #d7b9ac;
 }
 
 body {
@@ -73,22 +58,27 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: #d7b9ac;
 }
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: none;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #8f7d75;
+  color: white;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 button:hover {
-  border-color: #646cff;
+  background-color: #d7b9ac;
+  transform: translateY(-3px);
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -100,9 +90,10 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #8f7d75;
   }
   button {
     background-color: #f9f9f9;
+    color: #213547;
   }
 }

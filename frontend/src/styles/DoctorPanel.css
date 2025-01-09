@@ -1,42 +1,42 @@
 .doctor-panel-title {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 1rem; /* Zmniejszono dolny margines */
-  margin-top: 0; /* Wyzerowano górny margines */
+  margin-bottom: 1.5rem;
+  margin-top: 0rem;
   text-align: center;
   color: white;
 }
 
 .doctor-panel-container {
-  margin: 1rem auto; /* Zmniejszono marginesy wokół kontenera */
+  margin: 2rem auto 1.8rem auto;
   padding: 2rem;
   border-radius: 12px;
-  background: linear-gradient(90deg, #153758, #6a7b8c);
+  background: linear-gradient(90deg, #1b3650, #7e9cba);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
-  max-width: 600px;
+  max-width: 100%;
   color: white;
 }
 
 .doctor-panel-menu {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-top: 1rem; /* Zmniejszono odstęp między tytułem a menu */
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .doctor-panel-link {
   text-decoration: none;
   color: white;
-  background-color: #242424;
+  background-color: #656565;
   padding: 0.8rem 1.5rem;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .doctor-panel-link:hover {
-  background-color: #ff8800;
+  background-color: #8f7d75;
   transform: translateY(-3px);
 }

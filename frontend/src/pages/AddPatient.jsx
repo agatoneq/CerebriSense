@@ -5,13 +5,14 @@ function AddPatient() {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
-    group: "2",
+    group: "",
     gender: "",
     raw_eeg_file: null,
     doctor_id: "",
   });
 
   const [message, setMessage] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -24,7 +25,9 @@ function AddPatient() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    setMessage("");
+    setIsProcessing(true);
+
     const formDataToSend = new FormData();
     formDataToSend.append("first_name", formData.first_name);
     formDataToSend.append("last_name", formData.last_name);
@@ -32,26 +35,34 @@ function AddPatient() {
     formDataToSend.append("gender", formData.gender);
     formDataToSend.append("raw_eeg_file", formData.raw_eeg_file);
     formDataToSend.append("doctor_id", parseInt(localStorage.getItem("id")));
-    
-  
+
     try {
       const response = await fetch("http://127.0.0.1:5000/api/v1/patients/add", {
         method: "POST",
         body: formDataToSend,
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-        setMessage(data.message);
+        setMessage(`Dodano Pacjenta ${formData.first_name} ${formData.last_name}!`);
+        setFormData({
+          first_name: "",
+          last_name: "",
+          group: "",
+          gender: "",
+          raw_eeg_file: null,
+          doctor_id: "",
+        });
       } else {
         const error = await response.json();
         setMessage(error.error);
       }
     } catch (err) {
       setMessage("Wystąpił problem z połączeniem.");
+    } finally {
+      setIsProcessing(false);
     }
   };
-  
 
   return (
     <div className="add-patient-container">
@@ -62,6 +73,7 @@ function AddPatient() {
           name="first_name"
           placeholder="Imię"
           className="add-patient-input"
+          value={formData.first_name}
           onChange={handleChange}
           required
         />
@@ -70,15 +82,29 @@ function AddPatient() {
           name="last_name"
           placeholder="Nazwisko"
           className="add-patient-input"
+          value={formData.last_name}
           onChange={handleChange}
           required
         />
-        <select name="group" className="add-patient-select" onChange={handleChange}>
-          <option value="2">Nieznane</option>
+        <select
+          name="group"
+          className="add-patient-select"
+          value={formData.group}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Wybierz, czy zdiagnozowałeś już pacjenta</option>
+          <option value="2">Nieokreślony</option>
           <option value="0">Zdrowy</option>
-          <option value="1">Schizofrenia</option>
+          <option value="1">Chory</option>
         </select>
-        <select name="gender" className="add-patient-select" onChange={handleChange} required>
+        <select
+          name="gender"
+          className="add-patient-select"
+          value={formData.gender}
+          onChange={handleChange}
+          required
+        >
           <option value="">Wybierz płeć</option>
           <option value="M">Mężczyzna</option>
           <option value="F">Kobieta</option>
@@ -91,11 +117,25 @@ function AddPatient() {
           onChange={handleChange}
           required
         />
-        <button type="submit" className="add-patient-button">
-          Dodaj Pacjenta
+        <button
+          type="submit"
+          className={`add-patient-button ${isProcessing ? "processing" : ""}`}
+          disabled={isProcessing}
+        >
+          {isProcessing ? "Przetwarzanie..." : "Zatwierdź nowego pacjenta"}
         </button>
       </form>
-      {message && <p className="add-patient-message">{message}</p>}
+      {message && (
+        <div className="add-patient-message-container">
+          <button
+            className="view-patients-button"
+            onClick={() => window.location.href = "/patients"}
+          >
+            Przeglądaj listę Pacjentów
+          </button>
+          <p className="add-patient-message">{message}</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 from app.db.db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.dialects.postgresql import JSON
+from datetime import datetime
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -23,10 +24,19 @@ class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(128), nullable=False)
     last_name = db.Column(db.String(128), nullable=False)
-    group = db.Column(db.Integer, default=2)  # 0 - zdrowy, 1 - schizofrenia, 2 - nieznane
+    group = db.Column(db.Integer, default=2)
     gender = db.Column(db.String(1), nullable=False)
-    notes = db.Column(db.JSON, default=[])
-    raw_eeg_file = db.Column(db.String(255))
-    processed_eeg_file = db.Column(db.String(255))
-    model_result = db.Column(db.Integer) 
-    doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    notes = db.Column(JSON, default=[])
+    doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    processed_files = db.relationship("ProcessedFile", backref="patient", lazy=True)
+
+
+class ProcessedFile(db.Model):
+    __tablename__ = "processed_files"
+
+    id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
+    file_path = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
