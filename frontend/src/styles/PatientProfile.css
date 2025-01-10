@@ -1,5 +1,5 @@
 .patient-profile-container {
-  margin: 6rem auto 1.8rem auto;
+  margin: 2rem auto 1.8rem auto;
   padding: 2rem;
   max-width: 800px;
   background: linear-gradient(90deg, #1b3650, #7e9cba);
@@ -13,6 +13,7 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
+  margin-top: 0;
   text-align: center;
 }
 
@@ -48,7 +49,7 @@ li a:hover {
 }
 
 .back-button {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   padding: 1rem;
   background-color: #656565;
   color: white;

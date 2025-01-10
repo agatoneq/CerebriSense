@@ -29,9 +29,14 @@
   border-radius: 8px;
   font-size: 1rem;
   background-color: #242424;
-  color: gray;
+  color: white;
   outline: none;
   appearance: none;
+}
+
+.add-patient-input::placeholder {
+  color: gray;
+  font-style: italic;
 }
 
 .add-patient-select:valid {
@@ -41,7 +46,6 @@
 .add-patient-select option[disabled] {
   color: gray;
 }
-
 
 input:-webkit-autofill {
   background-color: #242424 !important;
@@ -55,7 +59,6 @@ input:-webkit-autofill {
 .add-patient-select {
   appearance: none;
 }
-
 
 .add-patient-button {
   padding: 0.8rem 1.5rem;

@@ -8,6 +8,7 @@ function AddPatient() {
     group: "",
     gender: "",
     raw_eeg_file: null,
+    file_name: "",
     doctor_id: "",
   });
 
@@ -34,6 +35,7 @@ function AddPatient() {
     formDataToSend.append("group", formData.group);
     formDataToSend.append("gender", formData.gender);
     formDataToSend.append("raw_eeg_file", formData.raw_eeg_file);
+    formDataToSend.append("file_name", formData.file_name);
     formDataToSend.append("doctor_id", parseInt(localStorage.getItem("id")));
 
     try {
@@ -51,6 +53,7 @@ function AddPatient() {
           group: "",
           gender: "",
           raw_eeg_file: null,
+          file_name: "",
           doctor_id: "",
         });
       } else {
@@ -93,7 +96,7 @@ function AddPatient() {
           onChange={handleChange}
           required
         >
-          <option value="">Wybierz, czy zdiagnozowałeś już pacjenta</option>
+          <option value="">Określ swoją diagnozę dla pacjenta</option>
           <option value="2">Nieokreślony</option>
           <option value="0">Zdrowy</option>
           <option value="1">Chory</option>
@@ -116,6 +119,14 @@ function AddPatient() {
           className="add-patient-input"
           onChange={handleChange}
           required
+        />
+        <input
+          type="text"
+          name="file_name"
+          placeholder="Krótka notatka do pliku (opcjonalnie)"
+          className="add-patient-input"
+          value={formData.file_name}
+          onChange={handleChange}
         />
         <button
           type="submit"

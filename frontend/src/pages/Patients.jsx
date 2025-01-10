@@ -4,6 +4,7 @@ import "../styles/Patients.css";
 function Patients() {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const doctorId = parseInt(localStorage.getItem("id"));
 
   useEffect(() => {
     const fetchPatients = async () => {
@@ -11,7 +12,13 @@ function Patients() {
         const response = await fetch("http://127.0.0.1:5000/api/v1/patients/");
         if (response.ok) {
           const data = await response.json();
-          setPatients(data.patients);
+          console.log("Pobrani pacjenci (pełne dane):", data.patients);
+          const filteredPatients = data.patients.filter((patient) => {
+            console.log("Sprawdzanie pacjenta:", patient);
+            return parseInt(patient.doctor_id) === doctorId;
+          });
+          console.log("Przefiltrowani pacjenci:", filteredPatients);
+          setPatients(filteredPatients);
         } else {
           console.error("Błąd podczas pobierania pacjentów.");
         }
@@ -23,7 +30,7 @@ function Patients() {
     };
 
     fetchPatients();
-  }, []);
+  }, [doctorId]);
 
   if (loading) {
     return <div className="loading">Ładowanie danych pacjentów...</div>;
@@ -33,7 +40,7 @@ function Patients() {
     <div className="patients-container">
       <h2 className="patients-title">Twoi Pacjenci</h2>
       {patients.length === 0 ? (
-        <p className="no-patients">Nie znaleziono pacjentów.</p>
+        <p className="no-patients">Nie znaleziono pacjentów przypisanych do Ciebie.</p>
       ) : (
         <div className="patients-grid">
           {patients.map((patient) => (

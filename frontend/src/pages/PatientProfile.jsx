@@ -3,17 +3,27 @@ import { useParams } from "react-router-dom";
 import "../styles/PatientProfile.css";
 
 function PatientProfile() {
-  const { id } = useParams();
+  const { id } = useParams(); // `id` to patient_id
   const [patient, setPatient] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPatient = async () => {
+      const doctorId = localStorage.getItem("id"); // Pobierz doctor_id z localStorage
+      if (!doctorId) {
+        console.error("Nie znaleziono ID lekarza w localStorage.");
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await fetch(`http://127.0.0.1:5000/api/v1/patients/${id}`);
+        const response = await fetch(`http://127.0.0.1:5000/api/v1/patients/${doctorId}/${id}`);
         if (response.ok) {
           const data = await response.json();
           setPatient(data.patient);
+        } else if (response.status === 403) {
+          console.error("Brak dostępu do danych pacjenta.");
+          setPatient(null);
         } else {
           console.error("Błąd podczas pobierania danych pacjenta.");
         }
@@ -32,7 +42,7 @@ function PatientProfile() {
   }
 
   if (!patient) {
-    return <div className="error">Nie znaleziono danych pacjenta.</div>;
+    return <div className="error">Nie znaleziono danych pacjenta lub brak dostępu.</div>;
   }
 
   return (
@@ -56,13 +66,13 @@ function PatientProfile() {
           <strong>Notatki:</strong> {patient.notes.length > 0 ? patient.notes.join(", ") : "-"}
         </p>
         <p>
-          <strong>Dla tego pacjenta wgrałeś {patient.processed_files.length} plików EEG w następujących dniach:</strong>
+          <strong>Przypisano następującą liczbę plików EEG:</strong> {patient.processed_files.length}.
         </p>
         {patient.processed_files.length > 0 ? (
-          <ul>
+          <ul className="files-list">
             {patient.processed_files.map((file, index) => (
               <li key={index}>
-                {new Date(file.created_at).toLocaleString()}
+                {index + 1}. {file.file_name || `Plik ${index + 1}`} | Dodano: {new Date(file.created_at).toLocaleString()}
               </li>
             ))}
           </ul>
