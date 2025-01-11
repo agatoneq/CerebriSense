@@ -8,6 +8,7 @@
 }
 
 .doctor-panel-container {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   margin: 2rem auto 1.8rem auto;
   padding: 2rem;
   border-radius: 12px;

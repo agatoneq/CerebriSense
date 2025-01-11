@@ -1,0 +1,118 @@
+.eeg-analysis-container {
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  max-width: 800px;
+  background: linear-gradient(90deg, #1b3650, #7e9cba);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: left;
+}
+
+.eeg-analysis-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: white;
+  text-align: left;
+  margin-top: 0;
+}
+
+.upload-section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.file-upload-section {
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.file-input {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #242424;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.file-input::placeholder {
+  color: #d7b9ac;
+}
+
+.analyze-button {
+  background-color: #656565;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.analyze-button:hover {
+  background-color: #8f7d75;
+  transform: translateY(-3px);
+}
+
+.analyze-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.analysis-result-section {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  background-color: #242424;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.analysis-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.classification-highlight {
+  color: #d7b9ac;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.analysis-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.analysis-list li {
+  margin: 0.5rem 0;
+  color: white;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.patients-link {
+  color: #d7b9ac;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.patients-link:hover {
+  color: #8f7d75;
+  text-decoration: underline;
+}

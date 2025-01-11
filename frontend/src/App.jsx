@@ -8,6 +8,9 @@ import AddPatient from "./pages/AddPatient";
 import Patients from "./pages/Patients";
 import PatientProfile from "./pages/PatientProfile";
 import DiagnosisPanel from "./pages/DiagnosisPanel";
+import AnalyzeUnassigned from "./pages/AnalyzeUnassigned";
+import AnalyzePatient from "./pages/AnalyzePatient";
+import Results from "./pages/Results";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -31,15 +34,19 @@ function App() {
 
   return (
     <Router>
+      <div className="main-container">
       <div className="navbar">
-        {!isLoggedIn && <Link to="/">Home</Link>}
-        <Link to="/about-study">O Badaniu</Link>
-        <Link to="/about-app">O Aplikacji</Link>
-        {!isLoggedIn && <Link to="/login">Zaloguj się</Link>}
+        <Link to="/">Strona Główna</Link>
+        {!isLoggedIn && (
+          <>
+            <Link to="/login">Zaloguj się</Link>
+            <Link to="/register">Zarejestruj się</Link>
+          </>
+        )}
         {isLoggedIn && (
           <>
-            <Link to="/doctor-panel">Panel Zarządzania Pacjentami</Link>
-            <Link to="/diagnosis-panel">Panel Diagnozy</Link>
+            <Link to="/doctor-panel">Zarządzaj Pacjentami</Link>
+            <Link to="/diagnosis-panel">Analizuj Plik EEG</Link>
             <Link to="/" onClick={handleLogout}>
               Wyloguj się
             </Link>
@@ -53,25 +60,25 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route
             path="/doctor-panel"
-            element={isLoggedIn ? <DoctorPanel /> : <Navigate to="/login" />}
-          />
+            element={isLoggedIn ? <DoctorPanel /> : <Navigate to="/login" />} />
           <Route
             path="/add-patient"
-            element={isLoggedIn ? <AddPatient /> : <Navigate to="/login" />}
-          />
+            element={isLoggedIn ? <AddPatient /> : <Navigate to="/login" />} />
           <Route
             path="/patients"
-            element={isLoggedIn ? <Patients /> : <Navigate to="/login" />}
-          />
+            element={isLoggedIn ? <Patients /> : <Navigate to="/login" />} />
           <Route
             path="/patient-details/:id"
-            element={isLoggedIn ? <PatientProfile /> : <Navigate to="/login" />}
-          />
+            element={isLoggedIn ? <PatientProfile /> : <Navigate to="/login" />} />
           <Route
             path="/diagnosis-panel"
-            element={isLoggedIn ? <DiagnosisPanel /> : <Navigate to="/login" />}
-          />
+            element={isLoggedIn ? <DiagnosisPanel /> : <Navigate to="/login" />} />
+          <Route path="/analyze-unassigned" element={<AnalyzeUnassigned />} />
+          <Route path="/analyze-patient" element={<AnalyzePatient />} />
+          <Route path="/patient/:id" element={<PatientProfile />} />
+          <Route path="/results" element={<Results />} />
         </Routes>
+      </div>
       </div>
     </Router>
   );

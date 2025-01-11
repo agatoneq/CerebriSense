@@ -40,3 +40,14 @@ class ProcessedFile(db.Model):
     file_path = db.Column(db.String(255), nullable=False)
     file_name = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+
+class AnalysisResult(db.Model):
+    __tablename__ = "analysis_results"
+    id = db.Column(db.Integer, primary_key=True)
+    file_id = db.Column(db.Integer, db.ForeignKey("processed_files.id"), nullable=False)
+    probability = db.Column(db.Float, nullable=False)
+    classification = db.Column(db.String(255), nullable=False)
+    shap_report = db.Column(db.Text, nullable=True)
+    processed_file = db.relationship("ProcessedFile", backref="analysis_results")
+    

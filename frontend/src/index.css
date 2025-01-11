@@ -47,6 +47,21 @@
   color: #d7b9ac;
 }
 
+.content {
+  /* max-width: 600px; */
+  width: 100%;
+  /* margin-top: 150px; */
+  margin: 100px auto;
+}
+
+.main-container {
+  width: 90vw;
+  height: 80vh;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
 body {
   margin: 0;
   display: flex;

@@ -1,7 +1,7 @@
 .patients-container {
   margin: 6rem auto 1.8rem auto;
   padding: 1rem 2rem 2rem 2rem;
-  max-width: 100%;
+  width: 70vw;
   background: linear-gradient(90deg, #1b3650, #7e9cba);
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -32,6 +32,7 @@
 
 .patient-card p {
   margin: 0.5rem 0;
+  width: 300px;
 }
 
 .details-button {
