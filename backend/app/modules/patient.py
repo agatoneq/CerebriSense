@@ -37,6 +37,7 @@ def process_and_save_erp(patient_file, output_file, time, columns, selected_elec
     except Exception as e:
         raise Exception(f"Błąd podczas przetwarzania pliku EEG: {str(e)}")
 
+
 @patients_bp.route("/add", methods=["POST"])
 def add_patient():
     try:
