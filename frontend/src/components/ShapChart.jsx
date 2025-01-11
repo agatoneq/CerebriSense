@@ -41,13 +41,14 @@ const ShapChart = ({ shapReport }) => {
     relevantLines.forEach((line) => {
       if (line.includes(":")) {
         const [featurePart, impactPart] = line.split(":").map((part) => part.trim());
-        const match = impactPart.match(/[-+]?[0-9]*\.?[0-9]+/);
+        const match = impactPart.match(/[0-9]*\.?[0-9]+/);
         if (match) {
           features.push(featurePart.slice(2));
-          impacts.push(parseFloat(match[0]));
+          const value = parseFloat(match[0]);
+          impacts.push(impactPart.includes("zmniejsza") ? -value : value);
         }
       }
-    });
+    });    
   
     console.log("Features:", features);
     console.log("Impacts:", impacts);

@@ -65,7 +65,7 @@
 }
 
 .analyze-button.disabled {
-  background-color: #ccc;
+  background-color: #d7b9ac;
   cursor: not-allowed;
 }
 

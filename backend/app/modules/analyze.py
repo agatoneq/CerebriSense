@@ -201,7 +201,7 @@ def analyze_temporary_file():
             )
             shap_values = explainer.shap_values(patient_features)[0]
             feature_names = aggregated_data.columns[3:].tolist()
-            report = generate_report(shap_values, feature_names, float(probability))  # Konwersja probability na float
+            report = generate_report(shap_values, feature_names, float(probability))
         except Exception as e:
             logger.error(f"Błąd podczas analizy pliku EEG: {str(e)}")
             return jsonify({"error": f"Błąd podczas analizy pliku EEG: {str(e)}"}), 500
